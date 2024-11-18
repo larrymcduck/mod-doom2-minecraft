@@ -1,0 +1,2 @@
+#include "actors/blocks.txt"
+#include "actors/weapons.txt"

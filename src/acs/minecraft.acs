@@ -1,0 +1,22 @@
+#library "minecraft"
+#include "zcommon.acs"
+
+str block_list[1] = {
+  "Block_Bedrock"
+};
+
+script "place_block" (int block)
+{
+  
+  str place_block = block_list[block];
+  
+  int x = GetActorX(0);
+  int y = GetActorY(0);
+  int z = GetActorZ(0);
+  
+  print(d:x);
+  print(d:y);
+  print(d:z);
+  
+	  
+}

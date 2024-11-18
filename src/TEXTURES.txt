@@ -1,0 +1,13 @@
+texture BEDROCK, 16, 16
+{
+  XScale 0.5
+  YScale 0.5
+  patch BEDROCK, 0, 0
+}
+
+texture DIRT, 16, 16
+{
+  XScale 0.5
+  YScale 0.5
+  patch DIRT, 0, 0
+}

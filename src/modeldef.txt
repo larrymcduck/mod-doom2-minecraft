@@ -1,0 +1,30 @@
+// --------------- blocks ---------------
+
+Model Block_Bedrock
+{
+  Path "models/blocks"
+  Model 0 "block.md2"
+  Skin 0 "bedrock.png"
+  Scale 3.0 3.0 3.0
+  FrameIndex BLCK A 0 0
+}
+
+Model Block_Bedrock_Ammo
+{
+  ROTATING
+  Path "models/blocks"
+  Model 0 "block.md2"
+  Skin 0 "bedrock.png"
+  Scale 3.0 3.0 3.0
+  FrameIndex BLCK A 0 0
+}
+
+Model Block_Bedrock_Weapon
+{
+  ROTATING
+  Path "models/blocks"
+  Model 0 "block.md2"
+  Skin 0 "bedrock.png"
+  Scale 3.0 3.0 3.0
+  FrameIndex BLCK A 0 0
+}
