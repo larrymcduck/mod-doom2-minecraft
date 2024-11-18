@@ -1,22 +1,55 @@
 #library "minecraft"
 #include "zcommon.acs"
 
-str block_list[1] = {
+str block_str_list[1] = {
   "Block_Bedrock"
 };
 
-script "place_block" (int block)
+int block_angle_list[2] = {
+  0
+};
+
+function int abs(int value)
 {
+  if (value < 0)
+  {
+    value *= -1;
+  }
   
-  str place_block = block_list[block];
+  return value;
+}
+
+int block_size = 32;
+int block_move = 16;
+function int GetBlockLocation(int value, int move, int check)
+{  
+  int retval = 0;
+  int absolute = abs(value);
+  while (retval < absolute - check)
+  {
+    retval += block_size;
+  }
   
-  int x = GetActorX(0);
-  int y = GetActorY(0);
-  int z = GetActorZ(0);
+  if (value < 0)
+  {
+    retval *= -1;
+  }
   
-  print(d:x);
-  print(d:y);
-  print(d:z);
+  return retval + move;
+}
+
+script "place_block" (int block_index)
+{
+  int x = (GetBlockLocation(GetActorX(0) >> 16, 16, 16)) << 16;
+  int y = (GetBlockLocation(GetActorY(0) >> 16, 16, 16)) << 16;
+  int z = (GetBlockLocation(GetActorZ(0) >> 16, 0, 16)) << 16;
+
+  int spawned = Spawn(block_str_list[block_index], x, y, z, 0, block_angle_list[block_index]);
   
-	  
+  printbold(d:x >> 16, s:" , ", d:y >> 16, s:" , ", d:z >> 16);
+}
+
+script "GetGameType" (void)
+{
+  SetResultValue(GetCVar("minecraft_gametype"));
 }

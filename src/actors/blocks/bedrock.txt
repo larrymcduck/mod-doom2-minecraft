@@ -1,0 +1,109 @@
+Actor Block_Bedrock : Block
+{
+  DamageFactor "Pickaxe", 0.0
+  DamageFactor "TNT", 0.0
+  States
+  {
+    Spawn:
+      BLCK A -1
+      Stop
+    Death:
+      // spawn smaller blocks
+      BLCK A 0
+      Stop
+  }
+}
+
+actor Block_Bedrock_Projectile : FastProjectile
+{
+  Speed 200
+  Damage 0
+  Height 0
+  Radius 0
+  +CANNOTPUSH
+  +NODAMAGETHRUST
+  +BLOODLESSIMPACT
+  -SOLID
+    
+  States
+  {
+    Spawn:
+      BAL1 A 1
+      Stop
+    Death:
+      BAL1 A 0
+      BAL1 A 1 ACS_NamedExecuteAlways("place_block", 0, 0)
+      BAL1 AAAA 1
+      Stop
+  }
+}
+
+Actor Block_Bedrock_Puff : Block_Puff
+{
+  States
+  {
+    Spawn:
+      Goto Missile+2
+    Death:
+    XDeath:
+    Crash:
+    Melee:
+    Missile:
+      BAL1 A 0
+      BAL1 A 1 ACS_NamedExecuteAlways("place_block", 0, 0)
+      BAL1 AAAA 1
+      Stop
+  }
+}
+
+Actor Block_Bedrock_Ammo : Ammo
+{
+  +FLOATBOB
+  Inventory.Icon bedrock
+  Inventory.PickupMessage "Bedrock"
+  Inventory.Amount 1
+  Inventory.MaxAmount 999
+  Ammo.BackpackAmount 1
+  Ammo.BackpackMaxAmount 999
+
+  Tag "Bedrock"
+}
+
+actor Block_Bedrock_Weapon : Block_Weapon
+{
+  Tag "Bedrock"
+  Inventory.Icon bedrock
+  Inventory.PickupMessage "Bedrock"
+
+	Weapon.AmmoType "Block_Bedrock_Ammo"
+    
+  States
+  {
+    Spawn:
+      PUNG A -1
+      Stop
+		Ready:
+			PUNG A 1 A_WeaponReady
+			Loop
+		Select:
+			PUNG A 1 A_Raise
+			Loop
+		Deselect:
+			PUNG A 1 A_Lower
+			Loop
+    Fire:
+      PUNG C 0 A_JumpIf(CallACS("GetGameType", 0, 0, 0) != 2, "SkipDestroyBlock")
+      PUNG C 4 A_CustomPunch(999, TRUE, "CPF_NOTURN|CPF_NORANDOMPUFFZ", "Destroy_Block_Puff", 128)
+    SkipDestroyBlock:
+      PUNG D 5
+      PUNG C 4
+      PUNG B 5 A_ReFire
+      Goto Ready
+    AltFire:
+      PUNG C 4 A_CustomPunch(0, TRUE, "CPF_NOTURN|CPF_NORANDOMPUFFZ", "Block_Bedrock_Puff", 128)
+      PUNG D 5
+      PUNG C 4
+      PUNG B 5 A_ReFire
+      Goto Ready
+  }
+}

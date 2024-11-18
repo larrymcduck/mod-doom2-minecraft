@@ -1,4 +1,4 @@
-actor Minecraft_Player : PlayerPawn
+actor Minecraft_Player : DoomPlayer
 {
   Speed 1
   Health 100
@@ -6,7 +6,20 @@ actor Minecraft_Player : PlayerPawn
   Height 56
   Mass 100
   PainChance 255
+  Player.AttackZOffset 8
   Player.ViewHeight 48
-  Player.WeaponSlot 1, Block_Bedrock_Inv
+  Player.DisplayName "Minecrafter"
   
+  Player.StartItem Block_Bedrock_Weapon
+  Player.StartItem Block_Bedrock_Ammo, 64
+
+  Player.WeaponSlot 1, Block_Bedrock_Weapon
+  Player.WeaponSlot 2, Block_Bedrock_Weapon
+  Player.WeaponSlot 3, Block_Bedrock_Weapon
+  Player.WeaponSlot 4, Block_Bedrock_Weapon
+  Player.WeaponSlot 5, Block_Bedrock_Weapon
+  Player.WeaponSlot 6, Block_Bedrock_Weapon
+  Player.WeaponSlot 7, Block_Bedrock_Weapon
+  Player.WeaponSlot 8, Block_Bedrock_Weapon
+  Player.WeaponSlot 9, Block_Bedrock_Weapon
 }

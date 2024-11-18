@@ -1,2 +1,3 @@
-#include "actors/blocks.txt"
-#include "actors/weapons.txt"
+#include "actors/blocks/_blocks.txt"
+#include "actors/blocks/bedrock.txt"
+#include "actors/player.txt"
